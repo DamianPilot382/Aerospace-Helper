@@ -7,14 +7,15 @@ import html from 'remark-html'
 const postsDirectory = path.join(process.cwd(), 'blogposts')
 
 export function getSortedPostData() {
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(postsDirectory);
-    const allPostsData = fileNames.map((fileName) => {
+    // Get all subfodlers under /posts
+    const subfolders = fs.readdirSync(postsDirectory);
+    
+    const allPostsData = subfolders.map((subfolder) => {
         // Remove ".md" from file name to get id
-        const id = fileName.replace(/\.md$/, '');
+        const id = subfolder;
 
         // Read markdown file as string
-        const fullPath = path.join(postsDirectory, fileName);
+        const fullPath = path.join(postsDirectory, subfolder, id + '.md');
         const fileContents = fs.readFileSync(fullPath, 'utf8');
 
         // Use gray-matter to parse the post metadata section
@@ -34,7 +35,7 @@ export function getSortedPostData() {
 }
 
 export async function getPostData(id: string) {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
+    const fullPath = path.join(postsDirectory, id, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
