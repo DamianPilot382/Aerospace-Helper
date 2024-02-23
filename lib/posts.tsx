@@ -2,7 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
+import rehypeKatex from 'rehype-katex'
+import rehypeStringify from 'rehype-stringify'
+import remarkMath from 'remark-math'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
 
 const postsDirectory = path.join(process.cwd(), 'blogposts')
 
@@ -42,7 +46,11 @@ export async function getPostData(id: string) {
     const matterResult = matter(fileContents);
 
     const processedContent = await remark()
-        .use(html)
+        .use(remarkParse)
+        .use(remarkMath)
+        .use(remarkRehype)
+        .use(rehypeKatex)
+        .use(rehypeStringify)
         .process(matterResult.content);
 
     const contentHtml = processedContent.toString();

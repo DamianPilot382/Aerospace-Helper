@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/navbar";
 import MyProfilePic from "./components/MyProfilePic";
+import 'katex/dist/katex.min.css';
+// import 'rehype-code-titles/rehype-code-titles.css';
 
 const inter = Inter({ subsets: ["latin"] });
 
