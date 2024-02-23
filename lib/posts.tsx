@@ -8,7 +8,7 @@ import remarkMath from 'remark-math'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 
-const postsDirectory = path.join(process.cwd(), 'blogposts')
+const postsDirectory = path.join(process.cwd(), 'posts')
 
 export function getSortedPostData() {
     // Get file names under /posts
@@ -24,14 +24,14 @@ export function getSortedPostData() {
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(fileContents);
 
-        const blogPost: BlogPost = {
+        const post: Post = {
             id,
             title: matterResult.data.title,
             date: matterResult.data.date,
         }
 
         // Combine the data with the id
-        return blogPost
+        return post
     });
     // Sort posts by date
     return allPostsData.sort((a, b) => a.date < b.date ? 1 : -1);
@@ -54,7 +54,7 @@ export async function getPostData(id: string) {
 
     const contentHtml = processedContent.toString();
 
-    const blogPostWithHTML: BlogPost & { contentHtml: string } = { 
+    const postWithHTML: Post & { contentHtml: string } = { 
         id,
         title: matterResult.data.title,
         date: matterResult.data.date,
@@ -62,5 +62,5 @@ export async function getPostData(id: string) {
     }
 
     // Combine the data with the id
-    return blogPostWithHTML
+    return postWithHTML
 }
