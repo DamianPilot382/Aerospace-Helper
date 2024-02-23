@@ -4,9 +4,10 @@ export default function Home() {
   return (
     <main>
       <p className="mt-12 mb-12 text-3xl text-center dark:text-white">
-        Hello and Welcome 👋&nbsp;
+        Pilotcraft Aerospace
+        <br/>
         <span className="whitespace-nowrap">
-          I&apos;m <span className="font-bold">Damian</span>.
+          <span className="font-bold">In thrust we trust</span>.
         </span>
       </p>
       <Posts />
