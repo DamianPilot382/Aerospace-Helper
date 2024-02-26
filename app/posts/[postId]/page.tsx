@@ -2,13 +2,17 @@ import getFormattedDate from "@/lib/getFormattedDate"
 import { getSortedPostData, getPostData } from "@/lib/posts"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import MyProfilePic from "@/app/components/MyProfilePic"
+import Image from "next/image"
+
+export const dynamic = 'force-static'
 
 export function generateStaticParams(){
     const posts = getSortedPostData()
     
     return posts.map(post => {
-        postId: post.id
-    })
+        return {postId: post.id}
+    });
 
 }
 
@@ -45,10 +49,33 @@ export default async function Post({ params }: { params: { postId: string } }) {
 
     return (
         <main className="px-6 prose prose-xl prose-slate dark:prose-invert mx-auto">
-            <h1 className="text-3xl mt-4 mb-0">{title}</h1>
-            <p className="mt-0">
-                {pubDate}
-            </p>
+
+            <h1 className="flex text-3xl mt-4 mb-0 justify-center">{title}</h1>
+
+            <div className="flex justify-center items-center">
+
+                <div className="mr-10">
+                    <Image
+                    className="border-2 border-black dark:border-slate-500
+                    drop-shadow-sm shadow-black rounded-full mx-auto"
+                    src="/images/profile-pic.png"
+                    alt="Damian Ugalde"
+                    width={100}
+                    height={100}
+                    priority={true}
+                    />
+                </div>
+                <div className="items-center">
+                    <p className="">{pubDate}</p>
+                    <p className=" text-xl">By: <a>Damian Ugalde</a></p>
+                </div>
+            </div>
+
+            
+            
+            <hr className="my-5"/>
+
+
             <article>
                 <section dangerouslySetInnerHTML={{ __html: contentHtml }} />
                 <p>
